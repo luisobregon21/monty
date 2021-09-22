@@ -6,12 +6,16 @@ void pall(char *string);
 int main(int argc, char **argv)
 	//posible edge cases si no existe el file oh si el file no tiene nada
 {
-	//crear espacio para link usando malloc
 	FILE *file;
 	char string[1000];
 	int lidx;
-
 	file = fopen(argv[1], "r");
+
+	if (!file)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
 
 	while (fgets(string, sizeof(string), file))
 	{
