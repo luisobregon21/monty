@@ -1,7 +1,9 @@
 #ifndef __MONTY_H__
 #define __MONTY_H__
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 /* DATA STRUCTURES down below*/
 
@@ -35,5 +37,18 @@ char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/* PROTOTYPES WILL BE HERE */
+/* PROTOTYPES DOWN BELOW */
+int number_test(char *string);
+void file_open(const char *filename);
+void push_perror(int line, char *string);
+int number_test(char *string);
+
+/* PROTOTYPES FOR OPCODES BELOW*/
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
 #endif /* MONTY */
