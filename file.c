@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
+
 int number_test(char *string);
 int main(int argc, char **argv)
 	//posible edge cases si no existe el file oh si el file no tiene nada
