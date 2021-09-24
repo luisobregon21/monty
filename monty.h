@@ -42,6 +42,7 @@ int number_test(char *string);
 void file_open(const char *filename);
 void push_perror(int line, char *string);
 int number_test(char *string);
+void (*opcode_conv(char *func_name)) (stack_t **stack, unsigned int line);
 
 /* PROTOTYPES FOR OPCODES BELOW*/
 void push(stack_t **stack, unsigned int line_number);
