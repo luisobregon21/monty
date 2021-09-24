@@ -1,10 +1,10 @@
-#ifndef __MONTY_H__
-#define __MONTY_H__
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
+extern int global;
 /* DATA STRUCTURES down below*/
 
 /**
@@ -43,6 +43,7 @@ void file_open(const char *filename);
 void push_perror(int line, char *string);
 int number_test(char *string);
 void (*opcode_conv(char *func_name)) (stack_t **stack, unsigned int line);
+void free_list(stack_t *head);
 
 /* PROTOTYPES FOR OPCODES BELOW*/
 void push(stack_t **stack, unsigned int line_number);
@@ -52,4 +53,4 @@ void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
-#endif /* MONTY */
+#endif /*_GNU_SOURCE_*/
