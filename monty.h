@@ -35,6 +35,20 @@ typedef struct instruction_s
 char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+/**
+ * struct leave - file, char*, stack_t
+ * @file: file used
+ * @string: line of file
+ * @stack: the node
+ */
+typedef struct leave
+{
+FILE *file;
+char *string;
+stack_t *stack;
+}
+leave_t;
+extern leave_t data;
 
 /* PROTOTYPES DOWN BELOW */
 void file_open(const char *filename);
@@ -43,6 +57,7 @@ int number_test(char *buf, char *string, int line, FILE *file);
 void (*opcode_conv(char *func_name)) (stack_t **stack, unsigned int line);
 void free_list(stack_t *head);
 void nofile(const char *filename);
+void free_data(void);
 
 /* PROTOTYPES FOR OPCODES BELOW*/
 stack_t *push(stack_t **stack, int value);

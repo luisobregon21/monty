@@ -23,3 +23,13 @@ void nofile(const char *filename)
 	fprintf(stderr, "Error: Can't open file %s\n", filename);
 	exit(EXIT_FAILURE);
 }
+/**
+ * free_data - frees data struct
+ */
+void free_data(void)
+{
+	free_list(data.stack);
+	free(data.string);
+	fclose(data.file);
+	exit(EXIT_FAILURE);
+}

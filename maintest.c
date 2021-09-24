@@ -1,4 +1,5 @@
 #include "monty.h"
+leave_t data = {NULL, NULL, NULL};
 /**
  * main - reads monty file and runs opcodes
  * @argc: arguement counter
@@ -21,17 +22,16 @@ int main(int argc, char **argv)
  */
 void file_open(const char *filename)
 {
-	char *cut = " \n*~$%)(\t\r&", *key = NULL, *string = NULL;
+	char *cut = " \n*~$%)(\t\r&", *key = NULL;
 	size_t str_len = 0;
 	int value = 0, count = 1;
-	FILE *file = fopen(filename, "r");
-	stack_t *stack = NULL;
 
-	if (!file)
+	data.file = fopen(filename, "r");
+	if (!data.file)
 		nofile(filename);
-	while (getline(&string, &str_len, file) != EOF)
+	while (getline(&data.string, &str_len, data.file) != EOF)
 	{
-		key = strtok(string, cut);
+		key = strtok(data.string, cut);
 		if (key == NULL)
 		{
 			count++;
@@ -42,25 +42,25 @@ void file_open(const char *filename)
 			if (strcmp(key, "push") == 0)
 			{
 				key = strtok(NULL, cut);
-				if (number_test(string, key, count, file) == 0)
+				if (number_test(data.string, key, count, data.file) == 0)
 				{
 					value = atoi(key);
-					push(&stack, value);
+					push(&data.stack, value);
 				}
 			}
 			else
 			{
-				if (!string)
-					fprintf(stderr, "L%d: unknown instruction %s\n", count, string);
-				opcode_conv(string)(&stack, count);
+				if (!data.string)
+				{
+					fprintf(stderr, "L%d: unknown instruction %s\n", count, data.string);
+					free_data();
+				}
+				opcode_conv(data.string)(&data.stack, count);
 			}
 		}
 		count++;
 	}
-	free_list(stack);
-	free(string);
-	fclose(file);
-	return;
+	free_data();
 }
 /**
  * push_perror - prints an error message and exits
