@@ -69,3 +69,26 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void) stack;
 	(void) line_number;
 }
+/**
+ * sub - subtracts the top two elements of the stack.
+ * @stack: the node added to the stack.
+ * @line_number: the line number.
+ */
+void sub(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		tmp = *stack;
+		*stack = tmp->next;
+		(*stack)->n -= tmp->n;
+		(*stack)->prev = tmp->prev;
+		free(tmp);
+	}
+}
