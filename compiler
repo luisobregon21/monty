@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc -g -Wall -Werror -Wextra -pedantic -std=c90 *.c -o monty
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./monty pablo.m

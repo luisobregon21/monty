@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-extern int global;
 /* DATA STRUCTURES down below*/
 
 /**
@@ -38,15 +37,15 @@ void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* PROTOTYPES DOWN BELOW */
-int number_test(char *string);
 void file_open(const char *filename);
 void push_perror(int line, char *string);
-int number_test(char *string);
+int number_test(char *buf, char *string, int line, FILE *file);
 void (*opcode_conv(char *func_name)) (stack_t **stack, unsigned int line);
 void free_list(stack_t *head);
+void nofile(const char *filename);
 
 /* PROTOTYPES FOR OPCODES BELOW*/
-void push(stack_t **stack, unsigned int line_number);
+stack_t *push(stack_t **stack, int value);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);

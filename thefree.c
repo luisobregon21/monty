@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
  * free_list - frees a dlistint_t list.
- * @stack: head of the list
+ * @head: head of the list
  */
 void free_list(stack_t *head)
 {
@@ -13,4 +13,13 @@ void free_list(stack_t *head)
 		free(head);
 		head = tmp;
 	}
+}
+/**
+ * nofile - prints error
+ * @filename: file passed
+ */
+void nofile(const char *filename)
+{
+	fprintf(stderr, "Error: Can't open file %s\n", filename);
+	exit(EXIT_FAILURE);
 }

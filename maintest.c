@@ -23,44 +23,44 @@ void file_open(const char *filename)
 {
 	char *cut = " \n*~$%)(\t\r&", *key = NULL, *string = NULL;
 	size_t str_len = 0;
-	unsigned int value = 0, count = 1;
+	int value = 0, count = 1;
 	FILE *file = fopen(filename, "r");
 	stack_t *stack = NULL;
 
 	if (!file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", filename);
-		exit(EXIT_FAILURE);
-	}
+		nofile(filename);
 	while (getline(&string, &str_len, file) != EOF)
 	{
 		key = strtok(string, cut);
-		if (strcmp(key, "push") == 0)
+		if (key == NULL)
 		{
-			key = strtok(NULL, cut);
-			if (key == NULL)
-			{
-				push_perror(count, string);
-			}
-			if (number_test(key) == 0)
-			{
-				value = atoi(key);
-				opcode_conv("push")(&stack, value);
-			}
-			else if (number_test(key) == 1)
-			{
-				push_perror(count, string);
-			}
+			count++;
+			continue;
 		}
-		else
+		if (key[0] != '#')
 		{
-			opcode_conv(string)(&stack, count);
+			if (strcmp(key, "push") == 0)
+			{
+				key = strtok(NULL, cut);
+				if (number_test(string, key, count, file) == 0)
+				{
+					value = atoi(key);
+					push(&stack, value);
+				}
+			}
+			else
+			{
+				if (!string)
+					fprintf(stderr, "L%d: unknown instruction %s\n", count, string);
+				opcode_conv(string)(&stack, count);
+			}
 		}
 		count++;
 	}
 	free_list(stack);
 	free(string);
 	fclose(file);
+	return;
 }
 /**
  * push_perror - prints an error message and exits
@@ -76,20 +76,47 @@ void push_perror(int line, char *string)
 /**
  * number_test - checks if what follows "push" is a number
  * @string: the elements that follow "push"
+ * @buf: the line to be freed
+ * @line: the line we are at
+ * @file: the file to be closed
  * Return: 0 if what follows push is a digit or 1 if not.
  */
-int number_test(char *string)
+int number_test(char *buf, char *string, int line, FILE *file)
 {
 	int idx;
 
+	if (string == NULL)
+	{
+		fclose(file);
+		push_perror(line, buf);
+	}
 	for (idx = 0; string[idx] != '\0'; idx++)
 	{
-		if (isdigit(string[idx]) != 0)
+		if (string[idx] == '-')
 		{
-			return (0);
+			if (isdigit(string[idx + 1]) != 0)
+			{
+				continue;
+			}
+			else
+			{
+				fclose(file);
+				push_perror(line, buf);
+				return (1);
+			}
+		}
+		else if (isdigit(string[idx]) != 0)
+		{
+			continue;
+		}
+		else
+		{
+			fclose(file);
+			push_perror(line, buf);
+			return (1);
 		}
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -102,7 +129,6 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 	int idx;
 
 	instruction_t fp[] = {
-		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},

@@ -2,9 +2,10 @@
 /**
  * push - adds an element to the stack.
  * @stack: the node added to the stack.
- * @line_number: the value of the element.
+ * @value: the value of the element.
+ * Return: the node created
  */
-void push(stack_t **stack, unsigned int line_number)
+stack_t *push(stack_t **stack, int value)
 {
 	stack_t *new = NULL;
 
@@ -14,7 +15,7 @@ void push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new->n = line_number;
+	new->n = value;
 	new->prev = NULL;
 	if (*stack == NULL)
 	{
@@ -27,6 +28,7 @@ void push(stack_t **stack, unsigned int line_number)
 		(*stack)->prev = new;
 		*stack = new;
 	}
+	return (new);
 }
 
 /**
@@ -41,8 +43,7 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-		exit(EXIT_FAILURE);
+		return;
 	}
 
 	tmp = *stack;
