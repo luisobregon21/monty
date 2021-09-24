@@ -110,6 +110,7 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
+		{"sub", sub},
 		{NULL, NULL}
 	};
 
