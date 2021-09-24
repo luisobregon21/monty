@@ -1,5 +1,4 @@
 #include "monty.h"
-int global = 0;
 /**
  * main - reads monty file and runs opcodes
  * @argc: arguement counter
