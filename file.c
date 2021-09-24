@@ -1,4 +1,5 @@
 #include "monty.h"
+int global = 0;
 /**
  * main - reads monty file and runs opcodes
  * @argc: arguement counter
@@ -34,7 +35,6 @@ void file_open(const char *filename)
 	}
 	while (getline(&string, &str_len, file) != EOF)
 	{
-		/** guardas el return de strtok en el string key **/
 		key = strtok(string, cut);
 		if (strcmp(key, "push") == 0)
 		{
@@ -55,11 +55,11 @@ void file_open(const char *filename)
 		}
 		else
 		{
-		/* function pointers being called and runs corresponding function */
 			opcode_conv(string)(&stack, count);
 		}
 		count++;
 	}
+	free_list(stack);
 	free(string);
 	fclose(file);
 }
@@ -113,14 +113,12 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 		{NULL, NULL}
 	};
 
-	/* parsing through fp[] */
 	for (idx = 0; fp[idx].opcode != NULL; idx++)
 	{
 		if (strcmp(fp[idx].opcode, func_name) == 0)
 		{
-			/* calling functiom to their respective name and returns it*/
 			return (fp[idx].f);
 		}
 	}
-		return (NULL);
+	return (NULL);
 }
