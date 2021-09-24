@@ -7,12 +7,12 @@
  */
 int main(int argc, char **argv)
 {
-	if (ac != 2)
+	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s filename\n", av[0]);
+		fprintf(stderr, "Usage: %s filename\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
-	file_open(av[1]);
+	file_open(argv[1]);
 	return (0);
 }
 /**
@@ -21,10 +21,11 @@ int main(int argc, char **argv)
  */
 void file_open(const char *filename)
 {
-	char cut = " \n*~$%)(\t\r&", *key == NULL, *string = NULL;
+	char *cut = " \n*~$%)(\t\r&", *key = NULL, *string = NULL;
 	size_t str_len = 0;
-	int count = 1;
+	unsigned int value = 0, count = 1;
 	FILE *file = fopen(filename, "r");
+	stack_t *stack = NULL;
 
 	if (!file)
 	{
@@ -40,20 +41,22 @@ void file_open(const char *filename)
 			key = strtok(NULL, cut);
 			if (key == NULL)
 			{
-				push_error(count, string);
+				push_perror(count, string);
 			}
 			if (number_test(key) == 0)
 			{
-				/* aqui llamamos al function pointer de push con atoi(key) de parametro*/
+				value = atoi(key);
+				opcode_conv("push")(&stack, value);
 			}
 			else if (number_test(key) == 1)
 			{
-				push_error(count, string);
+				push_perror(count, string);
 			}
 		}
 		else
 		{
-			/* function pointers */
+		/* function pointers being called and runs corresponding function */
+			opcode_conv(string)(&stack, count);
 		}
 		count++;
 	}
@@ -86,4 +89,35 @@ int number_test(char *string)
 		}
 	}
 	return (1);
+}
+
+/**
+ * *opcode_conv - calls the corresponding opcode function to their string
+ * @func_name: the opcode name, example: "pall"
+ * Return: the function that needs to be executed.
+ */
+void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
+{
+	int idx;
+
+	instruction_t fp[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{NULL, NULL}
+	};
+
+	/* parsing through fp[] */
+	for (idx = 0; fp[idx].opcode != NULL; idx++)
+	{
+		if (strcmp(fp[idx].opcode, func_name) == 0)
+		{
+			/* calling functiom to their respective name and returns it*/
+			return (fp[idx].f);
+		}
+	}
 }
