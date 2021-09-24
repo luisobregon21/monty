@@ -60,6 +60,8 @@ void file_open(const char *filename)
 		}
 		count++;
 	}
+	free(string);
+	fclose(file);
 }
 /**
  * push_perror - prints an error message and exits
@@ -120,4 +122,5 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 			return (fp[idx].f);
 		}
 	}
+		return (NULL);
 }
