@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s filename\n", argv[0]);
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	file_open(argv[1]);
@@ -80,6 +80,12 @@ void push_perror(int line)
 int number_test(char *buf, int line)
 {
 	int idx;
+
+	if (strcmp(data.string, "push") != 0)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
+		free_data();
+	}
 
 	if (buf == NULL)
 	{
