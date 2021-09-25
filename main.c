@@ -68,7 +68,7 @@ void file_open(const char *filename)
  */
 void push_perror(int line)
 {
-	fprintf(stderr, "L%d:usage: push integer\n", line);
+	fprintf(stderr, "L%d: usage: push integer\n", line);
 	free_data();
 }
 /**
@@ -83,7 +83,7 @@ int number_test(char *buf, int line)
 
 	if (strcmp(data.string, "push") != 0)
 	{
-		fprintf(stderr, "L%d:unknown instruction %s\n", line, data.string);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
 		free_data();
 	}
 
