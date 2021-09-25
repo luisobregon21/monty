@@ -41,7 +41,7 @@ void file_open(const char *filename)
 		{
 			if (strncmp(key, "push", 4) == 0)
 			{
-				key = strtok(NULL, cut);
+				key = strtok(key, cut);
 				if (number_test(key, count) == 0)
 				{
 					value = atoi(key);
@@ -87,11 +87,7 @@ int number_test(char *buf, int line)
 		free_data();
 	}
 
-	if (buf == NULL)
-	{
-		push_perror(line);
-		return (1);
-	}
+
 	for (idx = 0; buf[idx] != '\0'; idx++)
 	{
 		if (buf[idx] == '-')
