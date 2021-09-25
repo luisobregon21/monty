@@ -81,15 +81,16 @@ int number_test(char *buf, int line)
 {
 	int idx;
 
-	if (strcmp(data.string, "push") != 0)
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
-		free_data();
-	}
 	if (buf == NULL)
 	{
 		push_perror(line);
 		return (1);
+	}
+
+	if (strcmp(data.string, "push") != 0)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
+		free_data();
 	}
 
 	for (idx = 0; buf[idx] != '\0'; idx++)
