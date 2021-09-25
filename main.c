@@ -39,8 +39,9 @@ void file_open(const char *filename)
 		}
 		if (key[0] != '#')
 		{
-			if (strcmp(key, "push") == 0)
+			if (strncmp(key, "push", 4) == 0)
 			{
+				printf("what is the key?:[%s]", key);
 				key = strtok(NULL, cut);
 				if (number_test(key, count) == 0)
 				{
