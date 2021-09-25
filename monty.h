@@ -53,7 +53,7 @@ extern leave_t data;
 /* PROTOTYPES DOWN BELOW */
 void file_open(const char *filename);
 void push_perror(int line, char *string);
-int number_test(char *buf, char *string, int line, FILE *file);
+int number_test(char *buf, int line);
 void (*opcode_conv(char *func_name)) (stack_t **stack, unsigned int line);
 void free_list(stack_t *head);
 void nofile(const char *filename);
