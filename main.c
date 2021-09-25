@@ -67,11 +67,10 @@ void file_open(const char *filename)
  * @line: the line number
  * @string: line to be free
  */
-void push_perror(int line, char *string)
+void push_perror(int line)
 {
 	fprintf(stderr, "L%d: usage: push integer\n", line);
-	free(string);
-	exit(EXIT_FAILURE);
+	free_data();
 }
 /**
  * number_test - checks if what follows "push" is a number
@@ -85,8 +84,7 @@ int number_test(char *buf, int line)
 
 	if (buf == NULL)
 	{
-		fclose(data.file);
-		push_perror(line, data.string);
+		push_perror(line);
 	}
 	for (idx = 0; buf[idx] != '\0'; idx++)
 	{
@@ -98,8 +96,7 @@ int number_test(char *buf, int line)
 			}
 			else
 			{
-				fclose(data.file);
-				push_perror(line, data.string);
+				push_perror(line);
 				return (1);
 			}
 		}
@@ -109,8 +106,7 @@ int number_test(char *buf, int line)
 		}
 		else
 		{
-			fclose(data.file);
-			push_perror(line, data.string);
+			push_perror(line);
 			return (1);
 		}
 	}
