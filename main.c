@@ -41,7 +41,6 @@ void file_open(const char *filename)
 		{
 			if (strncmp(key, "push", 4) == 0)
 			{
-				printf("what is the key?:[%s]", key);
 				key = strtok(NULL, cut);
 				if (number_test(key, count) == 0)
 				{
