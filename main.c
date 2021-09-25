@@ -86,7 +86,11 @@ int number_test(char *buf, int line)
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
 		free_data();
 	}
-
+	if (buf == NULL)
+	{
+		push_perror(line);
+		return (1);
+	}
 
 	for (idx = 0; buf[idx] != '\0'; idx++)
 	{
