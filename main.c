@@ -92,7 +92,7 @@ int number_test(char *buf, int line)
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
 		free_data();
 	}
-	for (idx = 0; buf[idx] != '\0' && buf[idx] == '\n'; idx++)
+	for (idx = 0; buf[idx] != '\0' && buf[idx] != '\n'; idx++)
 	{
 		if (buf[idx] == '-')
 		{
