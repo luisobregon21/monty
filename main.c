@@ -65,7 +65,6 @@ void file_open(const char *filename)
 /**
  * push_perror - prints an error message and exits
  * @line: the line number
- * @string: line to be free
  */
 void push_perror(int line)
 {
@@ -85,6 +84,7 @@ int number_test(char *buf, int line)
 	if (buf == NULL)
 	{
 		push_perror(line);
+		return (1);
 	}
 	for (idx = 0; buf[idx] != '\0'; idx++)
 	{
