@@ -108,7 +108,6 @@ int number_test(char *buf, int line)
 		}
 		else if (isdigit(buf[idx]) == 0)
 		{
-			printf("%s", buf);
 			push_perror(line);
 			return (1);
 		}
