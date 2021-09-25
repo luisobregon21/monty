@@ -92,8 +92,7 @@ int number_test(char *buf, int line)
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
 		free_data();
 	}
-
-	for (idx = 0; buf[idx] != '\0'; idx++)
+	for (idx = 0; buf[idx] != '\0' && buf[idx] == '\n'; idx++)
 	{
 		if (buf[idx] == '-')
 		{
@@ -107,12 +106,9 @@ int number_test(char *buf, int line)
 				return (1);
 			}
 		}
-		else if (isdigit(buf[idx]) != 0)
+		else if (isdigit(buf[idx]) == 0)
 		{
-			continue;
-		}
-		else
-		{
+			printf("%s", buf);
 			push_perror(line);
 			return (1);
 		}
