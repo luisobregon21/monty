@@ -22,7 +22,7 @@ int main(int argc, char **argv)
  */
 void file_open(const char *filename)
 {
-	char *cut = " \n*~$%)(\t\r&", *key = NULL;
+	char *cut = " \n*~$%)(\t\r& ", *key = NULL;
 	size_t str_len = 0;
 	int value = 0, count = 1;
 
@@ -41,7 +41,7 @@ void file_open(const char *filename)
 		{
 			if (strncmp(key, "push", 4) == 0)
 			{
-				key = strtok(key, cut);
+				key = strtok(NULL, " ");
 				if (number_test(key, count) == 0)
 				{
 					value = atoi(key);
