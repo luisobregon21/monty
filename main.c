@@ -76,10 +76,8 @@ void push_perror(int line, char *string)
 }
 /**
  * number_test - checks if what follows "push" is a number
- * @string: the elements that follow "push"
- * @buf: the line to be freed
+ * @buf: the elements that follow "push"
  * @line: the line we are at
- * @file: the file to be closed
  * Return: 0 if what follows push is a digit or 1 if not.
  */
 int number_test(char *buf, int line)
