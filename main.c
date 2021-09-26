@@ -144,5 +144,5 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 	}
 	fprintf(stderr, "L%d: unknown instruction %s\n", data.line, data.string);
 	free_data();
-	return(NULL);
+	return (NULL);
 }
