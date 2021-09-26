@@ -30,6 +30,8 @@ void free_data(void)
 {
 	free_list(data.stack);
 	free(data.string);
+	free(data.line);
 	fclose(data.file);
+	free(data);	
 	exit(EXIT_FAILURE);
 }
