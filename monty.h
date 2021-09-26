@@ -46,6 +46,7 @@ typedef struct leave
 FILE *file;
 char *string;
 stack_t *stack;
+int line;
 }
 leave_t;
 extern leave_t data;
