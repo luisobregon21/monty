@@ -79,18 +79,17 @@ int number_test(char *hold, char *buf, int line)
 {
 	int idx = 0;
 
-	if ((buf == NULL || strncmp(buf, "\n", 1) == 0))
-	{
-		push_perror(line);
-		return (1);
-	}
-
 	if (strcmp(hold, "push") != 0)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, hold);
 		free_data();
 	}
 
+	if ((buf == NULL || strncmp(buf, "\n", 1) == 0))
+	{
+		push_perror(line);
+		return (1);
+	}
 
 	for (idx = 0; buf[idx] != '\0' && buf[idx] != '\n'; idx++)
 	{
