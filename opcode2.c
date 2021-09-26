@@ -58,17 +58,6 @@ void add(stack_t **stack, unsigned int line_number)
 		free(tmp);
 	}
 }
-
-/**
- * nop - does nothing.
- * @stack: the node added to the stack.
- * @line_number: the line number.
- */
-void nop(stack_t **stack, unsigned int line_number)
-{
-	(void) stack;
-	(void) line_number;
-}
 /**
  * sub - subtracts the top two elements of the stack.
  * @stack: the node added to the stack.
@@ -88,6 +77,60 @@ void sub(stack_t **stack, unsigned int line_number)
 		tmp = *stack;
 		*stack = tmp->next;
 		(*stack)->n = tmp->n - (*stack)->n;
+		(*stack)->prev = tmp->prev;
+		free(tmp);
+	}
+}
+/**
+ * div - divides the second top element of the stack
+ * by the top element of the stack.
+ * @stack: the node added to the stack.
+ * @line_number: the line number.
+ */
+void divide(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
+		free_data();
+	}
+	else if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		free_data();
+	}
+	else
+	{
+		tmp = *stack;
+		*stack = tmp->next;
+		(*stack)->n = tmp->n / (*stack)->n;
+		(*stack)->prev = tmp->prev;
+		free(tmp);
+	}
+}
+
+/**
+ * mul - multiplies the second top element of the stack
+ * by the top element of the stack.
+ * @stack: the node added to the stack.
+ * @line_number: the line number.
+ */
+void mul(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		free_data();
+	}
+	else
+	{
+		tmp = *stack;
+		*stack = tmp->next;
+		(*stack)->n = tmp->n * (*stack)->n;
 		(*stack)->prev = tmp->prev;
 		free(tmp);
 	}

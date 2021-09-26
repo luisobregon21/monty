@@ -33,3 +33,13 @@ void free_data(void)
 	fclose(data.file);
 	exit(EXIT_FAILURE);
 }
+/**
+ * nop - does nothing.
+ * @stack: the node added to the stack.
+ * @line_number: the line number.
+ */
+void nop(stack_t **stack, unsigned int line_number)
+{
+	(void) stack;
+	(void) line_number;
+}

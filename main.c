@@ -131,6 +131,9 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", divide},
+		{"mul", mul},
+		{"mod", mod},
 		{NULL, NULL}
 	};
 
