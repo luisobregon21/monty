@@ -22,7 +22,7 @@ int main(int argc, char **argv)
  */
 void file_open(const char *filename)
 {
-	char *cut = " \n*~$%)(\t\r& ", *key = NULL;
+	char *cut = " \n*~$%)(\t\r& ", *key = NULL, *hold = NULL;
 	size_t str_len = 0;
 	int value = 0, count = 1;
 
@@ -41,8 +41,9 @@ void file_open(const char *filename)
 		{
 			if (strncmp(key, "push", 4) == 0)
 			{
+				hold = key;
 				key = strtok(NULL, " ");
-				if (number_test(key, count) == 0)
+				if (number_test(hold, key, count) == 0)
 				{
 					value = atoi(key);
 					push(&data.stack, value);
@@ -55,7 +56,7 @@ void file_open(const char *filename)
 					fprintf(stderr, "L%d: unknown instruction %s\n", count, data.string);
 					free_data();
 				}
-				opcode_conv(data.string)(&data.stack, count);
+				opcode_conv(key)(&data.stack, count);
 			}
 		}
 		count++;
@@ -75,23 +76,26 @@ void push_perror(int line)
  * number_test - checks if what follows "push" is a number
  * @buf: the elements that follow "push"
  * @line: the line we are at
+ * @hold: essentialy "push"
  * Return: 0 if what follows push is a digit or 1 if not.
  */
-int number_test(char *buf, int line)
+int number_test(char *hold, char *buf, int line)
 {
-	int idx;
+	int idx = 0;
 
-	if (buf == NULL)
+	if ((buf == NULL || strncmp(buf, "\n", 1) == 0))
 	{
 		push_perror(line);
 		return (1);
 	}
 
-	if (strcmp(data.string, "push") != 0)
+	if (strcmp(hold, "push") != 0)
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line, data.string);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, hold);
 		free_data();
 	}
+
+
 	for (idx = 0; buf[idx] != '\0' && buf[idx] != '\n'; idx++)
 	{
 		if (buf[idx] == '-')
@@ -137,7 +141,7 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 
 	for (idx = 0; fp[idx].opcode != NULL; idx++)
 	{
-		if (strcmp(fp[idx].opcode, func_name) == 0)
+		if (strcmp(func_name, fp[idx].opcode) == 0)
 		{
 			return (fp[idx].f);
 		}
