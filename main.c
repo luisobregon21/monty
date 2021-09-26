@@ -1,5 +1,5 @@
 #include "monty.h"
-leave_t data = {NULL, NULL, NULL};
+leave_t data = {NULL, NULL, NULL, 0};
 /**
  * main - reads monty file and runs opcodes
  * @argc: arguement counter
@@ -51,11 +51,7 @@ void file_open(const char *filename)
 			}
 			else
 			{
-				if (!data.string)
-				{
-					fprintf(stderr, "L%d: unknown instruction %s\n", count, data.string);
-					free_data();
-				}
+				data.line = count;
 				opcode_conv(key)(&data.stack, count);
 			}
 		}
@@ -146,5 +142,7 @@ void (*opcode_conv(char *func_name))(stack_t **stack, unsigned int line)
 			return (fp[idx].f);
 		}
 	}
-	return (NULL);
+	fprintf(stderr, "L%d: unknown instruction %s\n", data.line, data.string);
+	free_data();
+	return(NULL);
 }
