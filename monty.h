@@ -40,6 +40,7 @@ void (*f)(stack_t **stack, unsigned int line_number);
  * @file: file used
  * @string: line of file
  * @stack: the node
+ * @line: line number
  */
 typedef struct leave
 {
