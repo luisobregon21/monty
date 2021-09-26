@@ -37,7 +37,7 @@ void file_open(const char *filename)
 			count++;
 			continue;
 		}
-		if (key[0] != '#')
+		if (data.string[0] != '#')
 		{
 			if (strncmp(key, "push", 4) == 0)
 			{
