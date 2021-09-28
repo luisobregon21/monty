@@ -1,2 +1,4 @@
 push 1
-pinte
+push 2
+push 3
+pall
