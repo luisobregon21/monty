@@ -82,7 +82,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * div - divides the second top element of the stack
+ * divide - divides the second top element of the stack
  * by the top element of the stack.
  * @stack: the node added to the stack.
  * @line_number: the line number.
