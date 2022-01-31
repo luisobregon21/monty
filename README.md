@@ -1,6 +1,8 @@
 # The monty program
 ## This is just a place holder for the 0x19. C - Stacks, Queues - LIFO, FIFO project.
 
+<img src="https://camo.githubusercontent.com/5306a81dd85f97f77bf27a282eb5f32d2733522ab58689ad24c372d2e9554fc3/68747470733a2f2f7062732e7477696d672e636f6d2f6d656469612f4346595957793655454145394f772d2e706e67" height=450 width=900/>
+
 ### Requirements
 Usage: monty file
 
