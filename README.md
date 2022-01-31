@@ -75,7 +75,11 @@ $
       push    6        $
 $
 pall This is the end of our program. Monty is awesome!$
-luis@ubuntu:~/monty$```
+luis@ubuntu:~/monty$
+```
 
  ---
-
+  
+## License
+Copyright © 2022, [Luis Obregon](https://github.com/luisobregon21),
+Released under the [Holberton School PR](LICENSE).
